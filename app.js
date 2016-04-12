@@ -11,20 +11,23 @@ angular.module('pomoApp', [])
 .controller('MainController', function($scope, $interval) {
   var vm = this;
   
-  vm.work = {};
-  vm.rest = {};
-  
-  vm.work.inputWorkMinutes = 25;
-  vm.rest.inputRestMinutes = 5;
-
-  vm.work.minutes = 2;
-  vm.work.seconds = 0;
-  vm.work.secondsStr = '00';
-  
-//  vm.countdown = vm.minutes.toString() + ':' + (vm.seconds.toString().length === 1 ? '0' + vm.seconds : vm.seconds);
+  vm.work = {
+    minutes: 2,
+    seconds: 0,
+    secondsStr: '00',
+    inputWorkMinutes: 2
+  };
+  vm.rest = {
+    minutes: 1,
+    seconds: 0,
+    secondsStr: '00',
+    inputRestMinutes: 1
+  };
   
   vm.work.timer = new PomoTimer(vm.work);
   
+  vm.rest.timer = new PomoTimer(vm.rest);
+
   function PomoTimer(timer) {
     var stop;
     
