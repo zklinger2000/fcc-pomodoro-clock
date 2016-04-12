@@ -21,13 +21,17 @@
     <h1>FreeCodeCamp</h1>
   </header>
   <div class="controls">
-    <input type="text">
-    <div class="btn" ng-click="vm.work.timer.startTimer()">Start</div>
-    <div class="btn" ng-click="vm.work.timer.stopTimer()">Stop</div>
+    <div class="controls work">
+      <input type="text">
+      <div class="btn" ng-click="vm.work.timer.startTimer()">Start</div>
+      <div class="btn" ng-click="vm.work.timer.stopTimer()">Stop</div>
+    </div>
   </div>
-  <div class="timer">
-    <div class="countdown" ng-bind="vm.work.minutes"></div>
-    <div class="countdown" ng-bind="vm.work.secondsStr"></div>
+  <div class="timers">
+    <div class="timers work">
+      <div class="countdown" ng-bind="vm.work.minutes"></div>
+      <div class="countdown" ng-bind="vm.work.secondsStr"></div>
+    </div>
   </div>
 </div>
 </body>
