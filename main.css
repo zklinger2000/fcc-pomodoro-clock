@@ -8,3 +8,28 @@
 body {
 /*  background-color: #ab577f;*/
 }
+.bar-graph {
+  height: 50vh;
+  width: 200px;
+}
+.bar {
+  transition: height 1.5s ease-out;
+}
+
+.bar[ng-style='vm.pomo.work.graphBlank'], .bar[ng-style='vm.pomo.rest.graphBlank'] {
+  background: grey;
+/*  border-radius: 50%;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+}
+.bar[ng-style='vm.pomo.work.graph'], .bar[ng-style='vm.pomo.rest.graph'] {
+  background: red;
+}
+
+/*=========
+  Flexbox 
+==========*/
+
+.timers {
+  display: flex;
+}
