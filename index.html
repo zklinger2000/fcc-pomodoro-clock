@@ -21,16 +21,29 @@
     <h1>FreeCodeCamp</h1>
   </header>
   <div class="controls">
-    <div class="controls work">
-      <input type="text">
-      <div class="btn" ng-click="vm.work.timer.startTimer()">Start</div>
-      <div class="btn" ng-click="vm.work.timer.stopTimer()">Stop</div>
+    <div class="controls-rest">
+      <div class="controls-minutes" ng-click="vm.pomo.rest.timer.subMinutes(1)">-</div>
+      <div class="controls-minutes" ng-bind="vm.pomo.rest.inputMinutes"></div>
+      <div class="controls-minutes" ng-click="vm.pomo.rest.timer.addMinutes(1)">+</div>
+      <div class="btn" ng-click="vm.pomo.rest.timer.startTimer()">Start Rest</div>
+      <div class="btn" ng-click="vm.pomo.rest.timer.stopTimer()">Stop Rest</div>
+    </div>
+    <div class="controls-work">
+      <div class="controls-minutes" ng-click="vm.pomo.work.timer.subMinutes(1)">-</div>
+      <div class="controls-minutes" ng-bind="vm.pomo.work.inputMinutes"></div>
+      <div class="controls-minutes" ng-click="vm.pomo.work.timer.addMinutes(1)">+</div>
+      <div class="btn" ng-click="vm.pomo.work.timer.startTimer(vm.pomo.rest)">Start</div>
+      <div class="btn" ng-click="vm.pomo.work.timer.stopTimer()">Stop</div>
     </div>
   </div>
   <div class="timers">
-    <div class="timers work">
-      <div class="countdown" ng-bind="vm.work.minutes"></div>
-      <div class="countdown" ng-bind="vm.work.secondsStr"></div>
+    <div class="timers-rest">
+      <div class="countdown" ng-bind="vm.pomo.rest.minutes"></div>
+      <div class="countdown" ng-bind="vm.pomo.rest.secondsStr"></div>
+    </div>
+    <div class="timers-work">
+      <div class="countdown" ng-bind="vm.pomo.work.minutes"></div>
+      <div class="countdown" ng-bind="vm.pomo.work.secondsStr"></div>
     </div>
   </div>
 </div>

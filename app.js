@@ -11,33 +11,52 @@ angular.module('pomoApp', [])
 .controller('MainController', function($scope, $interval) {
   var vm = this;
   
-  vm.work = {
-    minutes: 2,
-    seconds: 0,
-    secondsStr: '00',
-    inputWorkMinutes: 2
-  };
-  vm.rest = {
-    minutes: 1,
-    seconds: 0,
-    secondsStr: '00',
-    inputRestMinutes: 1
-  };
+  vm.pomo = new PomoTimer();
   
-  vm.work.timer = new PomoTimer(vm.work);
-  
-  vm.rest.timer = new PomoTimer(vm.rest);
+  function PomoTimer() {
+    this.work = {
+      minutes: 0,
+      seconds: 5,
+      secondsStr: '05',
+      inputMinutes: 0
+    };
+    this.rest = {
+      minutes: 1,
+      seconds: 0,
+      secondsStr: '00',
+      inputMinutes: 1
+    };
 
-  function PomoTimer(timer) {
-    var stop;
+    this.rest.timer = new Timer(this.rest);
+
+    this.work.timer = new Timer(this.work, this.rest);
+  }
+  
+  function Timer(timer, next) {
+    this.stop;
     
-    this.startTimer = function() {
+    this.stopTimer = stopTimer;
+    this.startTimer = startTimer;
+    this.addMinutes = addMinutes;
+    this.subMinutes = subMinutes;
+    
+    function stopTimer() {
+      if (angular.isDefined(this.stop)) {
+        $interval.cancel(this.stop);
+        this.stop = undefined;
+      }
+    }
+    
+    function startTimer(next) {
       // Return immediately if timer is running
-      if (angular.isDefined(stop)) return;
+      if (angular.isDefined(this.stop)) return;
       // Assign stop the promise
-      stop = $interval(function() {
+      this.stop = $interval(function() {
+        if (next && timer.minutes === 0 && timer.seconds === 1) {
+          next.timer.startTimer();
+        }
         if (timer.seconds === 0 && timer.minutes === 0) {
-          this.stopTimer();
+          stopTimer();
         } else if (timer.seconds === 0) {
           --timer.minutes;
           timer.seconds = 59;
@@ -47,17 +66,19 @@ angular.module('pomoApp', [])
         timer.secondsStr = timer.seconds.toString().length === 1 ? '0' + timer.seconds : timer.seconds;
       }, 1000);
     }
-    this.stopTimer = function() {
-      if (angular.isDefined(stop)) {
-        $interval.cancel(stop);
-        stop = undefined;
-      }
+    
+    function addMinutes(num) {
+      timer.inputMinutes += num;
     }
     
+    function subMinutes(num) {
+      timer.inputMinutes -= num;
+    }
   }
     
   $scope.$on('$destroy', function() {
-    vm.workTimer.stopTimer();
+    vm.work.timer.stopTimer();
+    vm.rest.timer.stopTimer();
   });
   
 });
