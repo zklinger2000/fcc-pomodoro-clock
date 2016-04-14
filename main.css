@@ -17,18 +17,6 @@ h1 {
   color: #eee;
   text-align: center;
 }
-.controls-reset {
-  background-color: #f9faf8;
-  text-align: center;
-  display: inline-block;
-  margin: .5em 0;
-  padding: .5em 1em;
-  border-radius: 15px;
-  border: 1px solid #222;
-}
-.controls-reset:hover {
-  background-color: #449469;
-}
 .timers {
   background-color: #f9faf8;
 /*  width: 300px;*/
@@ -90,6 +78,20 @@ h1 {
 .bar[ng-style='vm.pomo.work.graphBlank']:hover, .bar[ng-style='vm.pomo.rest.graphBlank']:hover {
   background: #449469;
 }
+.controls-reset {
+  background-color: #f9faf8;
+  text-align: center;
+  display: inline-block;
+  margin: .5em 0;
+  padding: .5em 1em;
+  border-radius: 15px;
+  border: 1px solid #222;
+  box-shadow: 1px 1px 3px #222;
+}
+.controls-reset:hover {
+  background-color: #449469;
+}
+
 /*=========
   Flexbox 
 ==========*/

@@ -9,46 +9,33 @@ angular.module('pomoApp', [])
 // Main Controller
 .controller('MainController', function($scope, $interval) {
   var vm = this;
+  vm.workMins = 25;
+  vm.restMins = 5;
   
-  vm.pomos = [];
   vm.toggleTimer = toggleTimer;
-  $scope.restGraph = {
-//    background: 'red',
-    height: '0%'
-  };
-  $scope.restGraphBlank = {
-//    background: 'grey',
-    height: '100%'
-  };
-  
-  function addPomo() {
-    
-  }
-  
+
+  // Create a PomoTimer
+  vm.pomo = new PomoTimer(vm.workMins, vm.restMins);
+
+  // Toggle a Timer on/off
   function toggleTimer(timer, next) {
     if (timer._stop) {
       timer.stopTimer();
     } else {
       if (next) {
         timer.startTimer(next);
-      } else {
-        console.log('Rest was Cancelled!');
       }
     }
-  }
-  
-  vm.workMins = 2;
-  vm.restMins = 1;
-  // Create a PomoTimer
-  vm.pomo = new PomoTimer(vm.workMins, vm.restMins);
-  
+  }  
   // PomoTimer constructor
   function PomoTimer(workMins, restMins) {
+    var _workMins = workMins;
+    var _restMins = restMins;
     this.work = {
-      minutes: workMins,
+      minutes: _workMins,
       seconds: 0,
       secondsStr: '00',
-      inputMinutes: workMins,
+      inputMinutes: _workMins,
       graphBlank: {
         height: '100%'
       },
@@ -58,10 +45,10 @@ angular.module('pomoApp', [])
       isActive: false
     };
     this.rest = {
-      minutes: restMins,
+      minutes: _restMins,
       seconds: 0,
       secondsStr: '00',
-      inputMinutes: restMins,
+      inputMinutes: _restMins,
       graphBlank: {
         height: '100%'
       },
@@ -70,10 +57,41 @@ angular.module('pomoApp', [])
       },
       isActive: false
     };
+    // Reset function
+    this.reset = function() {
+      // Reset Rest Timer
+      this.rest.timer.stopTimer();
+      this.rest.minutes = _restMins;
+      this.rest.seconds = 0;
+      this.rest.secondsStr = '00';
+      this.rest.inputMinutes = _restMins;
+      this.rest.graphBlank = {
+        height: '100%'
+      };
+      this.rest.graph = {
+        height: '0%'
+      };
+      this.rest.isActive = false;
+      // Reset Work Timer
+      this.work.timer.stopTimer();
+      this.work.minutes = _workMins;
+      this.work.seconds = 0;
+      this.work.secondsStr = '00';
+      this.work.inputMinutes = _workMins;
+      this.work.graphBlank = {
+        height: '100%'
+      };
+      this.work.graph = {
+        height: '0%'
+      };
+      this.work.isActive = false;
+    };
+    
     // Create a Rest Timer
     this.rest.timer = new Timer(this.rest);
     // Create a Work Timer and pass it the Rest Timer
     this.work.timer = new Timer(this.work, this.rest);
+
   }
   // Timer constructor
   function Timer(timer, next) {
@@ -92,13 +110,11 @@ angular.module('pomoApp', [])
       if (angular.isDefined(this._stop)) {
         $interval.cancel(this._stop);
         this._stop = undefined;
-        console.log(this.isActive);
       }
     }
     // Start the $interval and assign its promise to _stop
     function startTimer(next) {
       timerLength = timerLength || (timer.minutes * 60);
-      console.log('timerLength: ' + timerLength);
       // Return immediately if timer is running
       if (angular.isDefined(this._stop)) return;
       
@@ -149,10 +165,10 @@ angular.module('pomoApp', [])
       }
     }
   }
-    
+
   $scope.$on('$destroy', function() {
-    vm.work.timer.stopTimer();
-    vm.rest.timer.stopTimer();
+    vm.pomo.work.timer.stopTimer();
+    vm.pomo.rest.timer.stopTimer();
   });
   
 });
