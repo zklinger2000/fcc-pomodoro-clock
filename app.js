@@ -139,6 +139,7 @@ angular.module('pomoApp', [])
     }
     
     function subMinutes(num) {
+      if (timer.inputMinutes <= 1) return;
       timer.inputMinutes -= num;
       if (!this._stop) {
         timer.minutes = timer.inputMinutes;
