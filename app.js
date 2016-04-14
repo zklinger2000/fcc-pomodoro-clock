@@ -11,7 +11,8 @@ angular.module('pomoApp', [])
   var vm = this;
   vm.workMins = 25;
   vm.restMins = 5;
-  
+  var audio = new Audio('http://soundbible.com/grab.php?id=1496&type=mp3');
+          
   vm.toggleTimer = toggleTimer;
 
   // Create a PomoTimer
@@ -124,12 +125,14 @@ angular.module('pomoApp', [])
       timer.graphBlank.height = Math.max(0, (((timer.minutes * 60 + timer.seconds) / timerLength) * 100) - 1) + '%';
       timer.graph.height = Math.min(100, (101 - ((timer.minutes * 60 + timer.seconds) / timerLength) * 100)) + '%';
         // If there is a next timer, start it at 1 second left on this timer
+        if (timer.minutes === 0 && timer.seconds === 1) {
+          audio.play();
+        }
         if (next && timer.minutes === 0 && timer.seconds === 1) {
           next.timer.startTimer();
         }
         // If timer runs out, call stopTimer() to unassign 'stop' properly
         if (timer.seconds === 0 && timer.minutes === 0) {
-//          this.isActive = false;
           stopTimer();
         // Else, if we hit zero seconds with minutes left, decrement minutes, seconds
         } else if (timer.seconds === 0) {
