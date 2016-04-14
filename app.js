@@ -54,7 +54,8 @@ angular.module('pomoApp', [])
       },
       graph: {
         height: '0%'
-      }
+      },
+      isActive: false
     };
     this.rest = {
       minutes: restMins,
@@ -66,7 +67,8 @@ angular.module('pomoApp', [])
       },
       graph: {
         height: '0%'
-      }
+      },
+      isActive: false
     };
     // Create a Rest Timer
     this.rest.timer = new Timer(this.rest);
@@ -76,7 +78,7 @@ angular.module('pomoApp', [])
   // Timer constructor
   function Timer(timer, next) {
     this._stop;  // promise from $interval timer
-    this.isActive = false;
+    //this.isActive = false;
     
     // METHODS
     this.stopTimer = stopTimer;
@@ -86,10 +88,10 @@ angular.module('pomoApp', [])
     var timerLength;
     // Cancel the $interval and set its promise to 'undefined'
     function stopTimer() {
+      timer.isActive = false;
       if (angular.isDefined(this._stop)) {
         $interval.cancel(this._stop);
         this._stop = undefined;
-        this.isActive = false;
         console.log(this.isActive);
       }
     }
@@ -100,7 +102,7 @@ angular.module('pomoApp', [])
       // Return immediately if timer is running
       if (angular.isDefined(this._stop)) return;
       
-      this.isActive = true;
+      timer.isActive = true;
       // Assign _stop the promise returned from $interval
       this._stop = $interval(function() {
       timer.graphBlank.height = Math.max(0, (((timer.minutes * 60 + timer.seconds) / timerLength) * 100) - 1) + '%';

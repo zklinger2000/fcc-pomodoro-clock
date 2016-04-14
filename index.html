@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zack Klinger, Web Developer, Portland, OR</title>
   <!-- load lodash -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.js"></script>
@@ -9,9 +10,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
   <!-- link to main stylesheet -->
   <link rel="stylesheet" type="text/css" href="main.css"/>
-  <!-- Francois One font -->
-  <link href='https://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
-  <script src="app.js" type="application/javascript"></script> 
+  <!-- Oxygen font -->
+  <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>  <script src="app.js" type="application/javascript"></script> 
 </head>
 <body ng-app="pomoApp">
 <div class="wrapper" ng-controller="MainController as vm">
@@ -20,33 +20,35 @@
   </header>
   <div class="controls">
     <div class="controls-rest">
-      <div class="controls-minutes" ng-click="vm.pomo.rest.timer.subMinutes(1)">-</div>
-      <div class="controls-minutes" ng-bind="vm.pomo.rest.inputMinutes"></div>
-      <div class="controls-minutes" ng-click="vm.pomo.rest.timer.addMinutes(1)">+</div>
-      <div class="btn" ng-hide="vm.pomo.work.timer.isActive" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)">Toggle Work</div>
-      <div class="btn" ng-show="vm.pomo.work.timer.isActive" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)">Toggle Work (isActive)</div>
-      <div class="btn" ng-hide="vm.pomo.rest.timer.isActive" ng-click="vm.toggleTimer(vm.pomo.rest.timer)">Toggle Rest</div>
-      <div class="btn" ng-show="vm.pomo.rest.timer.isActive" ng-click="vm.toggleTimer(vm.pomo.rest.timer)">Toggle Rest (isActive)</div>
-    </div>
-    <div class="controls-work">
-      <div class="controls-minutes" ng-click="vm.pomo.work.timer.subMinutes(1)">-</div>
-      <div class="controls-minutes" ng-bind="vm.pomo.work.inputMinutes"></div>
-      <div class="controls-minutes" ng-click="vm.pomo.work.timer.addMinutes(1)">+</div>
+      <div class="btn" ng-hide="vm.pomo.work.isActive" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)">Toggle Work</div>
+      <div class="btn" ng-show="vm.pomo.work.isActive" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)">Toggle Work (isActive)</div>
+      <div class="btn" ng-hide="vm.pomo.rest.isActive" ng-click="vm.toggleTimer(vm.pomo.rest.timer)">Toggle Rest</div>
+      <div class="btn" ng-show="vm.pomo.rest.isActive" ng-click="vm.toggleTimer(vm.pomo.rest.timer)">Toggle Rest (isActive)</div>
     </div>
   </div>
   <div class="timers">
     <div class="timers-work">
-      <div class="countdown" ng-bind="vm.pomo.work.minutes"></div>
-      <div class="countdown" ng-bind="vm.pomo.work.secondsStr"></div>
-      <div class="bar-graph">
+      <h2>WORK</h2>
+      <div class="controls">
+        <div class="controls-push" ng-click="vm.pomo.work.timer.subMinutes(1)">-</div>
+        <div class="controls-minutes" ng-bind="vm.pomo.work.inputMinutes"></div>
+        <div class="controls-push" ng-click="vm.pomo.work.timer.addMinutes(1)">+</div>
+      </div>
+      <h2 class="bar-time">{{ vm.pomo.work.minutes + ':' + vm.pomo.work.secondsStr }}</h2>
+      <div class="bar-graph" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)">
         <div class="bar" ng-style="vm.pomo.work.graphBlank"></div>
         <div class="bar" ng-style="vm.pomo.work.graph"></div>
       </div>
     </div>
     <div class="timers-rest">
-      <div class="countdown" ng-bind="vm.pomo.rest.minutes"></div>
-      <div class="countdown" ng-bind="vm.pomo.rest.secondsStr"></div>
-      <div class="bar-graph">
+      <h2>REST</h2>
+      <div class="controls">
+        <div class="controls-push" ng-click="vm.pomo.rest.timer.subMinutes(1)">-</div>
+        <div class="controls-minutes" ng-bind="vm.pomo.rest.inputMinutes"></div>
+        <div class="controls-push" ng-click="vm.pomo.rest.timer.addMinutes(1)">+</div>
+      </div>
+      <h2 class="bar-time">{{ vm.pomo.rest.minutes + ':' + vm.pomo.rest.secondsStr }}</h2>
+      <div class="bar-graph" ng-click="vm.toggleTimer(vm.pomo.rest.timer)">
         <div class="bar" ng-style="vm.pomo.rest.graphBlank"></div>
         <div class="bar" ng-style="vm.pomo.rest.graph"></div>
       </div>
