@@ -140,17 +140,17 @@ h1 {
 @media screen and (min-width: 768px) {
  
   div.timers {
-    width: 768px;
+    width: 540px;
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: 2px 2px 12px 2px #222;
   }
   .bar-graph {
-    height: 350px;
-    width: 160px;
+/*    height: 350px;*/
+    width: 140px;
   }
   h2, h2.bar-time, .controls-push, .controls-minutes, .controls-reset {
-    font-size: 2em;
+/*    font-size: 2em;*/
   }
   .bar-graph.running {
     box-shadow: 0 0 8px 4px #83bb55;
