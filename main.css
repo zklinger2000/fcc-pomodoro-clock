@@ -33,6 +33,21 @@ h1 {
   width: 1.2em;
   text-align: center;
   border: 1px solid #333;
+  transition: background-color .2s;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.controls-push:hover {
+  background-color: #449469;
+  transition: background-color .2s;
+  cursor: pointer;
+}
+.controls-push:active {
+  background-color: #146439;
 }
 .controls-minutes {
   text-align: center;
@@ -77,6 +92,7 @@ h1 {
 }
 .bar[ng-style='vm.pomo.work.graphBlank']:hover, .bar[ng-style='vm.pomo.rest.graphBlank']:hover {
   background: #449469;
+  cursor: pointer;
 }
 .controls-reset {
   background-color: #f9faf8;
@@ -87,9 +103,21 @@ h1 {
   border-radius: 15px;
   border: 1px solid #222;
   box-shadow: 1px 1px 3px #222;
+  transition: background-color .2s;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .controls-reset:hover {
   background-color: #449469;
+  transition: background-color .2s;
+  cursor: pointer;
+}
+.controls-reset:active {
+  background-color: #146439;
 }
 
 /*=========
@@ -115,6 +143,7 @@ h1 {
     width: 768px;
     margin: 0 auto;
     border-radius: 10px;
+    box-shadow: 2px 2px 12px 2px #222;
   }
   .bar-graph {
     height: 350px;
