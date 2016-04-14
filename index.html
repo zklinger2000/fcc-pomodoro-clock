@@ -16,16 +16,8 @@
 <body ng-app="pomoApp">
 <div class="wrapper" ng-controller="MainController as vm">
   <header>
-    <h1>FreeCodeCamp</h1>
+    <h1>Pomodoro Timer</h1>
   </header>
-  <div class="controls">
-    <div class="controls-rest">
-      <div class="btn" ng-hide="vm.pomo.work.isActive" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)">Toggle Work</div>
-      <div class="btn" ng-show="vm.pomo.work.isActive" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)">Toggle Work (isActive)</div>
-      <div class="btn" ng-hide="vm.pomo.rest.isActive" ng-click="vm.toggleTimer(vm.pomo.rest.timer)">Toggle Rest</div>
-      <div class="btn" ng-show="vm.pomo.rest.isActive" ng-click="vm.toggleTimer(vm.pomo.rest.timer)">Toggle Rest (isActive)</div>
-    </div>
-  </div>
   <div class="timers">
     <div class="timers-work">
       <h2>WORK</h2>
@@ -35,7 +27,7 @@
         <div class="controls-push" ng-click="vm.pomo.work.timer.addMinutes(1)">+</div>
       </div>
       <h2 class="bar-time">{{ vm.pomo.work.minutes + ':' + vm.pomo.work.secondsStr }}</h2>
-      <div class="bar-graph" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)">
+      <div class="bar-graph" ng-click="vm.toggleTimer(vm.pomo.work.timer, vm.pomo.rest)" ng-class="{running: vm.pomo.work.isActive}">
         <div class="bar" ng-style="vm.pomo.work.graphBlank"></div>
         <div class="bar" ng-style="vm.pomo.work.graph"></div>
       </div>
@@ -48,12 +40,13 @@
         <div class="controls-push" ng-click="vm.pomo.rest.timer.addMinutes(1)">+</div>
       </div>
       <h2 class="bar-time">{{ vm.pomo.rest.minutes + ':' + vm.pomo.rest.secondsStr }}</h2>
-      <div class="bar-graph" ng-click="vm.toggleTimer(vm.pomo.rest.timer)">
+      <div class="bar-graph" ng-click="vm.toggleTimer(vm.pomo.rest.timer)" ng-class="{running: vm.pomo.rest.isActive}">
         <div class="bar" ng-style="vm.pomo.rest.graphBlank"></div>
         <div class="bar" ng-style="vm.pomo.rest.graph"></div>
       </div>
     </div>
   </div>
+  <div class="controls-reset" ng-click="vm.pomo.reset()">Reset</div>
 </div>
 </body>
 </html>

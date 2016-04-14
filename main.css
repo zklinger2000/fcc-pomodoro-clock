@@ -6,15 +6,35 @@
   box-sizing: border-box;
 }
 body {
+  margin: 0;
+  padding: 0;
+  color: #222;
   background-color: #35412a;
   font-family: 'Oxygen', sans-serif;
+  text-align: center;
+}
+h1 {
+  color: #eee;
+  text-align: center;
+}
+.controls-reset {
+  background-color: #f9faf8;
+  text-align: center;
+  display: inline-block;
+  margin: .5em 0;
+  padding: .5em 1em;
+  border-radius: 15px;
+  border: 1px solid #222;
+}
+.controls-reset:hover {
+  background-color: #449469;
 }
 .timers {
   background-color: #f9faf8;
-  width: 300px;
-  margin: 0 auto;
+/*  width: 300px;*/
+  margin: 0;
   padding: 30px 0;
-  border-radius: 5px;
+/*  border-radius: 5px;*/
 }
 .timers h2 {
   text-align: center;
@@ -44,10 +64,15 @@ body {
 .bar-graph {
   height: 240px;
   width: 80px;
+  transition: box-shadow 1s;
+  box-shadow: 0 0 0 0 #83bb55;
+}
+.bar-graph.running {
+  transition: box-shadow 1s;
+  box-shadow: 0 0 4px 2px #83bb55;
 }
 .bar {
-  transition: height 1.5s ease-out;
-  
+  transition: height 1.5s ease-out; 
 }
 .bar[ng-style='vm.pomo.work.graphBlank'], .bar[ng-style='vm.pomo.rest.graphBlank'] {
   background: rgba(22, 22, 22, 0.3);
@@ -62,7 +87,9 @@ body {
 .bar[ng-style='vm.pomo.rest.graph'] {
   background: #3f7c0d;
 }
-
+.bar[ng-style='vm.pomo.work.graphBlank']:hover, .bar[ng-style='vm.pomo.rest.graphBlank']:hover {
+  background: #449469;
+}
 /*=========
   Flexbox 
 ==========*/
